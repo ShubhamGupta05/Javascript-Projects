@@ -8,7 +8,7 @@
 	<h1>Start Learning by pressing the key from your keyboard:</h1>
 	<div class="keys">
 		<div>
-			<div data-key="65" class="key">
+			<div data-key="65" class="key" onclick="play(65)">
 				<kbd>A</kbd>
 				<span class="sound">A for</span>
 			</div>
@@ -169,6 +169,20 @@
 	  function removeTransition(e){
 	  	if(e.propertyName !== 'transform') return;
 	  	e.target.classList.remove('playing');
+	  }
+		
+	  function play(e){
+	  	console.log(e);
+	  	const audio = document.querySelector(`audio[data-key="${e}"]`);
+	  	//console.log(audio);
+	  	const key = document.querySelector(`.key[data-key="${e}"]`);
+	  	//console.log(key);
+
+	  	if(!audio) return;
+
+	  	key.classList.add('playing');
+	  	audio.currentTime = 0;
+	  	audio.play();
 	  }
 	  const keys = Array.from(document.querySelectorAll('.key'));
 	  keys.forEach(key => key.addEventListener('transitionend',removeTransition));
